@@ -1,0 +1,61 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'idea'
+
+version = ''
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+              // The gradle version we are using (2.2.1) does not have a provided scope by default. But war plugin as that by default
+              // To make sure that we are not polluting/refining what might be defined in the child project, we are creating a customProvidedScope
+             // compile.exclude module: "spring-boot-starter-tomcat"
+              customProvided
+               
+       }
+
+       sourceSets.main.compileClasspath += configurations.customProvided
+
+       idea {
+              module {
+                     scopes.PROVIDED.plus += [configurations.customProvided]
+              }
+       }
+
+       eclipse {
+              classpath {
+                     containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+                     containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+                     plusConfigurations += [configurations.customProvided]
+              }
+       }
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+	customProvided 'org.projectlombok:lombok:1.16.6'  
+	
+		// Swagger Dependencies
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+	compile group: 'io.swagger', name: 'swagger-parser', version: '1.0.28'
+	
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

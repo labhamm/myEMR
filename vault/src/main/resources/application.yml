@@ -1,0 +1,19 @@
+server:
+  httpProtocol: http
+  host: localhost
+  port: 8282
+  contextPath: "/"
+  sessionTimeout: 600
+  
+multipart:
+  enabled: true
+  maxFileSize: 128000Mb
+  maxRequestSize : 128000Mb
+  location: "C:/filess/"  
+  
+    
+vault:
+  type: "local"
+
+local:
+  vault_dir: raw/
