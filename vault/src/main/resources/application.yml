@@ -1,19 +1,26 @@
+spring:
+  application:
+    name: VaultApp
 server:
   httpProtocol: http
   host: localhost
   port: 8282
-  contextPath: "/"
+  contextPath: /
   sessionTimeout: 600
-  
 multipart:
   enabled: true
   maxFileSize: 128000Mb
-  maxRequestSize : 128000Mb
-  location: "C:/filess/"  
-  
-    
+  maxRequestSize: 128000Mb
+  location: C:/filess/
 vault:
-  type: "local"
-
+  type: cloud
 local:
   vault_dir: raw/
+cloud:
+  aws:
+    credentials:
+      accessKey: {accessKey}
+      secretKey: {secretKey}
+    region: {region}
+    s3:
+      bucket: vault.raw

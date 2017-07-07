@@ -51,6 +51,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 	customProvided 'org.projectlombok:lombok:1.16.6'  
+	compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.158'
+	
 	
 		// Swagger Dependencies
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
