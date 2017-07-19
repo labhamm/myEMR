@@ -1,6 +1,7 @@
 spring:
   application:
     name: VaultApp
+
 server:
   httpProtocol: http
   host: localhost
@@ -19,8 +20,8 @@ local:
 cloud:
   aws:
     credentials:
-      accessKey: {accessKey}
-      secretKey: {secretKey}
-    region: {region}
+      accessKey: AKIAJUQRUZFIVTAWKQVA
+      secretKey: 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
+    region: us-east-2
     s3:
       bucket: vault.raw

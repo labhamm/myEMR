@@ -1,0 +1,128 @@
+#zone {
+    border:1px solid gray;
+    cursor:crosshair;
+    height:450px;
+	margin:10px;
+}
+
+.sort-icon {
+    font-size: 9px;
+    margin-left: 5px;
+}
+
+th {
+    cursor:pointer;
+}
+
+table, th , td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+fieldset.search-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.search-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+.redstyle {color: red;}
+.blackstyle {color: black;}
+
+.posAtZone{margin: -80px 0px 0px 0px;}
+
+table tbody {
+	font-size: 12px;
+}
+
+table td {
+    line-height: 0.5857143 !important;
+}
+input[type="checkbox"] {
+    margin: -2px 0 0;
+}
+table .progress {
+	margin-bottom: 0px !important; 
+}
+
+table .form-control {
+	height: 25px !important;
+}
+table .btn{
+	padding: 0px 10px;
+}
+table > tbody > tr > td{
+	vertical-align: middle !important;
+}
+.dropdown-menu{
+/*  height:200px; */
+ overflow:auto;
+}
+#logoutModel{
+	margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+.td-style{
+	white-space: nowrap;
+	overflow: hidden;
+}
+.padding-style{
+	padding-right: 0px;
+}
+.padding-top{
+	padding-top: 5px;
+}
+.padding-bottom{
+	padding-bottom: 5px;
+}
+
+@media (min-width:768px){.container-val{display:none !important;}}
+.container-val:focus{outline:0}
+.container-val {display:block;}
+
+.inner-container {display:none;}
+@media (min-width:768px){.inner-container{display:block !important;}}
+.inner-container:focus{outline:0}
+
+@media (min-width:829px){
+.style_padding{
+	padding-top: 15px;
+}
+}
+@media (max-width:820px){
+.style_padding{
+	padding-left: 35px !important;
+}
+}
+@media (max-width:767px){
+.sm_padding_top{
+	padding-top: 5px;
+}
+}
+@media (min-width:767px){
+.margin_style{
+     margin: -40px 0px 0px 0px;
+}
+.posAtRouter{margin: -35px 0px 0px 0px;}
+}
+#wrapperDate {
+  font: 20px Calibri;
+  width: 100px;
+  margin: 0 auto;
+}
+.displayStyle{display: flex;}
