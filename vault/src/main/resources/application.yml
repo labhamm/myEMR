@@ -1,7 +1,11 @@
 spring:
   application:
     name: VaultApp
-
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: hackathon
 server:
   httpProtocol: http
   host: localhost
@@ -12,16 +16,16 @@ multipart:
   enabled: true
   maxFileSize: 128000Mb
   maxRequestSize: 128000Mb
-  location: C:/filess/
+  location: /tmp/filess/
 vault:
-  type: cloud
+  type: local
 local:
   vault_dir: raw/
 cloud:
   aws:
     credentials:
-      accessKey: AKIAJUQRUZFIVTAWKQVA
-      secretKey: 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
+      accessKey: AKIAJSIKGVFQIQTAM73Q
+      secretKey: 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
     region: us-east-2
     s3:
       bucket: vault.raw

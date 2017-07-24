@@ -9,8 +9,6 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import com.hackathon.vault.services.impl.CloudService;
 import com.hackathon.vault.services.impl.LocalService;
 
-import lombok.extern.log4j.Log4j2;
-
 /**
  * {@code LocalServiceCondition} could be used to instantiate the
  * {@link LocalService}.

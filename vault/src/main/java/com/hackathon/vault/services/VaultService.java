@@ -1,7 +1,10 @@
 package com.hackathon.vault.services;
 
+import java.io.IOException;
+import java.util.List;
 
-
+import com.hackathon.vault.entity.ObjectData;
+import com.hackathon.vault.entity.Timeline;
 import com.hackathon.vault.exception.MissingResourceException;
 import com.hackathon.vault.exception.ServiceException;
 import com.hackathon.vault.services.impl.CloudService;
@@ -26,6 +29,8 @@ public interface VaultService {
 
 	/**
 	 * Store object.
+	 * 
+	 * @param stringBuffer
 	 *
 	 * @param object
 	 *            the object
@@ -33,8 +38,9 @@ public interface VaultService {
 	 * @return the string
 	 * @throws ServiceException
 	 *             the service exception
+	 * @throws IOException
 	 */
-	public String storeObject(byte[] object, String fileName) throws ServiceException;
+	public String storeObject(ObjectData data, StringBuffer baseURL) throws ServiceException, IOException;
 
 	/**
 	 * Retrieve object.
@@ -48,5 +54,7 @@ public interface VaultService {
 	 *             the missing resource exception
 	 */
 	public byte[] retrieveObject(String resourceID) throws ServiceException, MissingResourceException;
+
+	public List<Timeline> getObjectList(String contextPath);
 
 }

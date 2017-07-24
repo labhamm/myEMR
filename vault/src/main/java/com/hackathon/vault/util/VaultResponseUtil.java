@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.hackathon.vault.common.PhoenixResponse;
-import com.hackathon.vault.common.ResponseUtils;
+import com.hackathon.vault.entity.PhoenixResponse;
+import com.hackathon.vault.entity.ResponseUtils;
 
 /**
  * VaultResponseUtil provides the utility for response.
@@ -28,24 +28,10 @@ public class VaultResponseUtil extends ResponseUtils {
 	 *            the request
 	 * @return the response entity
 	 */
-	public ResponseEntity<PhoenixResponse> resourceCreated(String resourceID, HttpServletRequest request) {
+	public ResponseEntity<PhoenixResponse> resourceCreated(String fileLocation, HttpServletRequest request) {
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", getFileLocation(resourceID, request));
+		headers.add("Location", fileLocation);
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
-	}
-
-	/**
-	 * Gets the file location.
-	 *
-	 * @param resourceID
-	 *            the resource ID
-	 * @param request
-	 *            the request
-	 * @return the file location
-	 */
-	private String getFileLocation(String resourceID, HttpServletRequest request) {
-		StringBuilder contextPath = new StringBuilder(request.getRequestURL()).append("/").append(resourceID);
-		return contextPath.toString();
 	}
 
 	/**

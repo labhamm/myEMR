@@ -1,4 +1,4 @@
-package com.hackathon.vault.common;
+package com.hackathon.vault.entity;
 
 import java.io.Serializable;
 

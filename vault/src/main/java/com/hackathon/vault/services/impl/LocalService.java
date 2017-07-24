@@ -2,13 +2,21 @@ package com.hackathon.vault.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.hackathon.vault.entity.ObjectData;
+import com.hackathon.vault.entity.Timeline;
 import com.hackathon.vault.exception.MissingResourceException;
 import com.hackathon.vault.exception.ServiceException;
+import com.hackathon.vault.repository.TimelineRepository;
 import com.hackathon.vault.services.VaultService;
+import com.hackathon.vault.util.CommonUtil;
+import com.hackathon.vault.util.VaultFileUtils;
 
 /**
  * Local service is implementation of <tt>VaultService</tt>.
@@ -28,6 +36,15 @@ public class LocalService implements VaultService {
 
 	@Value("${local.vault_dir}")
 	private String vaultDir;
+
+	@Autowired
+	private TimelineRepository repository;
+
+	@Autowired
+	private CommonUtil commonUtil;
+
+	@Autowired
+	private VaultFileUtils utils;
 
 	/**
 	 * Retrieve the object from local.
@@ -53,14 +70,33 @@ public class LocalService implements VaultService {
 	 * @see com.philips.phoenix.vault.services.VaultService#storeObject(byte[])
 	 */
 	@Override
-	public String storeObject(byte[] object, String fileName) throws ServiceException {
-		File file = new File(location + vaultDir, fileName);
+	public String storeObject(ObjectData data, StringBuffer baseURL) throws ServiceException {
+		String uuid = UUID.randomUUID().toString();
+		String fileName = utils.getFileName(uuid, data.getFile().getOriginalFilename());
+		String fileLocation = baseURL.append("/").append(fileName).toString();
+		String filePath = new StringBuilder(location).append(vaultDir).append(fileName).toString();
+		File file = new File(filePath);
 		try {
-			FileUtils.writeByteArrayToFile(file, object);
+			FileUtils.writeByteArrayToFile(file, data.getFile().getBytes());
 		} catch (IOException e) {
 			throw new ServiceException(e);
 		}
-		return fileName;
+
+		// save the file
+		Timeline timeline = new Timeline();
+		timeline.setId(uuid);
+		timeline.setFileName(data.getFile().getOriginalFilename());
+		timeline.setThumbnail_url(fileLocation);
+		timeline.setTags(data.getTags());
+		timeline.setCreatedDate(commonUtil.getCurrentDate());
+		repository.save(timeline);
+		return fileLocation;
+	}
+
+	@Override
+	public List<Timeline> getObjectList(String basePath) {
+		List<Timeline> timelines = repository.findAll();
+		return timelines;
 	}
 
 }

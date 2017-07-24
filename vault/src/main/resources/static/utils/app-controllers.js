@@ -9,9 +9,9 @@ wndApp.controller('loginCtrl',function($scope, $location, $log, $rootScope, $ses
 				// set page location after login
 				$location.path('/upload');
 				//set login flag true in rootScope
-				$rootScope.login = true;
+				$rootScope.login = false;
 				//set the login flag in session
-				$sessionStorage.login = true;
+				$sessionStorage.login = false;
 
 			}
 
@@ -22,7 +22,7 @@ wndApp.controller('loginCtrl',function($scope, $location, $log, $rootScope, $ses
 })
 // Upload
 .controller('uploadCtrl', function($scope, $http, $log, $location, $rootScope, $window) {
-	$rootScope.login = true;
+	$rootScope.login = false;
 	  var vm = $scope;
 	  var url = "/api/v1/File";
 	  var config = { headers: {

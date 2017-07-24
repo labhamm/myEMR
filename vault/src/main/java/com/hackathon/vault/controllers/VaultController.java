@@ -1,6 +1,7 @@
 package com.hackathon.vault.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,16 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.hackathon.vault.common.PhoenixResponse;
+import com.hackathon.vault.entity.ObjectData;
+import com.hackathon.vault.entity.PhoenixResponse;
+import com.hackathon.vault.entity.Timeline;
 import com.hackathon.vault.exception.MissingResourceException;
 import com.hackathon.vault.exception.ServiceException;
 import com.hackathon.vault.services.VaultService;
-import com.hackathon.vault.util.VaultFileUtils;
 import com.hackathon.vault.util.VaultResponseUtil;
 
 import io.swagger.annotations.ApiOperation;
@@ -69,9 +70,6 @@ public class VaultController {
 	@Autowired
 	private VaultResponseUtil responseUtil;
 
-	@Autowired
-	private VaultFileUtils utils;
-
 	/**
 	 * Download resource.
 	 *
@@ -117,15 +115,32 @@ public class VaultController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 500, message = "Internal server error") })
 	@RequestMapping(value = "/File", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<PhoenixResponse> uploadResource(@NotNull @RequestParam("file") MultipartFile file,
+	public ResponseEntity<PhoenixResponse> uploadResource(@NotNull ObjectData data,
 			MultipartHttpServletRequest request) {
 		ResponseEntity<PhoenixResponse> response;
 		try {
-			String fileName = service.storeObject(file.getBytes(), utils.getFileName(file.getOriginalFilename()));
-			response = responseUtil.resourceCreated(fileName, request);
+
+			String fileLocation = service.storeObject(data, request.getRequestURL());
+			response = responseUtil.resourceCreated(fileLocation, request);
 		} catch (ServiceException | IOException e) {
 			response = responseUtil.internalServerError();
 		}
 		return response;
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<PhoenixResponse> Resource(HttpServletRequest request) {
+		String resourceLocation = new StringBuilder("http://").append(request.getServerName()).append(":")
+				.append(request.getServerPort()).append("/index.html#/upload").toString();
+		PhoenixResponse response = new PhoenixResponse(resourceLocation);
+		return responseUtil.resourceRetrieved(response);
+	}
+
+	@RequestMapping(value = "/timeline", method = RequestMethod.GET)
+	public ResponseEntity<PhoenixResponse> getResouceList(HttpServletRequest request) {
+		String contextPath = new StringBuilder("http://").append(request.getServerName()).append(":")
+				.append(request.getServerPort()).append("/api/v1/File").toString();
+		List<Timeline> timeline = service.getObjectList(contextPath);
+		return responseUtil.resourceRetrieved(timeline);
 	}
 }

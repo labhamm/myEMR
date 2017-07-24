@@ -1,4 +1,4 @@
-package com.hackathon.vault.common;
+package com.hackathon.vault.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
