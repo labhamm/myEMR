@@ -55,7 +55,7 @@ public interface VaultService {
 	 */
 	public byte[] retrieveObject(String resourceID) throws ServiceException, MissingResourceException;
 
-	public List<Timeline> getObjectList(String contextPath);
+	public List<Timeline> getObjectList(String tags);
 
 	public Timeline updateTags(Timeline data);
 

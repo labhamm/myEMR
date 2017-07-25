@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -157,10 +158,9 @@ public class VaultController {
 	}
 
 	@RequestMapping(value = "/timeline", method = RequestMethod.GET)
-	public ResponseEntity<PhoenixResponse> getResouceList(HttpServletRequest request) {
-		String contextPath = new StringBuilder("http://").append(request.getServerName()).append(":")
-				.append(request.getServerPort()).append("/api/v1/File").toString();
-		List<Timeline> timeline = service.getObjectList(contextPath);
+	public ResponseEntity<PhoenixResponse> getResouceList(@RequestParam(required = false, value = "tags") String tags,
+			HttpServletRequest request) {
+		List<Timeline> timeline = service.getObjectList(tags);
 		return responseUtil.resourceRetrieved(timeline);
 	}
 }

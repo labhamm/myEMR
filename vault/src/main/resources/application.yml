@@ -6,6 +6,10 @@ spring:
       host: localhost
       port: 27017
       database: hackathon
+  http:
+    multipart:
+      max-file-size: 128000MB
+      max-request-size: 128000MB
 server:
   httpProtocol: http
   host: localhost
@@ -14,8 +18,6 @@ server:
   sessionTimeout: 600
 multipart:
   enabled: true
-  maxFileSize: 128000Mb
-  maxRequestSize: 128000Mb
   location: /tmp/filess/
 vault:
   type: local

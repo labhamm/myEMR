@@ -2,6 +2,7 @@ package com.hackathon.vault.services.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -93,8 +94,13 @@ public class LocalService implements VaultService {
 	}
 
 	@Override
-	public List<Timeline> getObjectList(String basePath) {
-		List<Timeline> timelines = repository.findAll();
+	public List<Timeline> getObjectList(String tags) {
+		List<Timeline> timelines = null;
+		if (null != tags) {
+			timelines = repository.findByTagsLike(Arrays.asList(tags.split(",")));
+		} else {
+			timelines = repository.findAll();
+		}
 		return timelines;
 	}
 

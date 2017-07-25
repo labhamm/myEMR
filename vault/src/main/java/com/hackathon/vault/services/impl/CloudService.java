@@ -88,7 +88,7 @@ public class CloudService implements VaultService {
 	}
 
 	@Override
-	public List<Timeline> getObjectList(String basePath) {
+	public List<Timeline> getObjectList(String tags) {
 		// TODO Auto-generated method stub
 		return null;
 	}
