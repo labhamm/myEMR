@@ -8,4 +8,6 @@ import com.hackathon.vault.entity.Timeline;
 @Repository
 public interface TimelineRepository extends MongoRepository<Timeline, String> {
 
+	Timeline findByThumbnailUrl(String thumbnailUrl);
+
 }

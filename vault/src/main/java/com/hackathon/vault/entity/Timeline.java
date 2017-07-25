@@ -3,6 +3,7 @@ package com.hackathon.vault.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -15,7 +16,8 @@ public class Timeline {
 	@Id
 	private String id;
 	private String fileName;
-	private String thumbnail_url;
+	@NotEmpty
+	private String thumbnailUrl;
 	private List<String> tags;
 	@JsonSerialize(using = JsonDateSerializer.class)
 	@JsonDeserialize(using = JsonDateDeserializer.class)
@@ -32,12 +34,12 @@ public class Timeline {
 		this.id = id;
 	}
 
-	public String getThumbnail_url() {
-		return thumbnail_url;
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
 	}
 
-	public void setThumbnail_url(String thumbnail_url) {
-		this.thumbnail_url = thumbnail_url;
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
 	}
 
 	public List<String> getTags() {
@@ -66,7 +68,8 @@ public class Timeline {
 
 	@Override
 	public String toString() {
-		return "Timeline [id=" + id + ", fileName=" + fileName + ", thumbnail_url=" + thumbnail_url + ", tags=" + tags
+		return "Timeline [id=" + id + ", fileName=" + fileName + ", thumbnailUrl=" + thumbnailUrl + ", tags=" + tags
 				+ ", createdDate=" + createdDate + "]";
 	}
+
 }

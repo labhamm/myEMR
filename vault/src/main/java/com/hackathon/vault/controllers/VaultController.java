@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -115,7 +117,7 @@ public class VaultController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 500, message = "Internal server error") })
 	@RequestMapping(value = "/File", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<PhoenixResponse> uploadResource(@NotNull ObjectData data,
+	public ResponseEntity<PhoenixResponse> uploadResource(@Valid @NotNull ObjectData data,
 			MultipartHttpServletRequest request) {
 		ResponseEntity<PhoenixResponse> response;
 		try {
@@ -123,6 +125,24 @@ public class VaultController {
 			String fileLocation = service.storeObject(data, request.getRequestURL());
 			response = responseUtil.resourceCreated(fileLocation, request);
 		} catch (ServiceException | IOException e) {
+			response = responseUtil.internalServerError();
+		}
+		return response;
+	}
+
+	@ApiOperation(tags = { "Vault" }, value = "Update a tags.")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Successfully file stored"),
+			@ApiResponse(code = 401, message = "You are not authorized to store the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 500, message = "Internal server error") })
+	@RequestMapping(value = "/File", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<PhoenixResponse> addTag(@Valid @NotNull @RequestBody Timeline data,
+			HttpServletRequest request) {
+		ResponseEntity<PhoenixResponse> response;
+		try {
+			Timeline timeline = service.updateTags(data);
+			response = responseUtil.resourceUpdated(timeline);
+		} catch (Exception e) {
 			response = responseUtil.internalServerError();
 		}
 		return response;

@@ -4,14 +4,12 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ObjectData {
 
-	@NotNull
+	@NotNull(message = "File should not be null")
 	private MultipartFile file;
-	@NotEmpty
 	private List<String> tags;
 
 	public MultipartFile getFile() {

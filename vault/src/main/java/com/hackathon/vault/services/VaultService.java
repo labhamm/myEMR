@@ -57,4 +57,6 @@ public interface VaultService {
 
 	public List<Timeline> getObjectList(String contextPath);
 
+	public Timeline updateTags(Timeline data);
+
 }

@@ -81,7 +81,6 @@ public class CloudService implements VaultService {
 		Timeline timeline = new Timeline();
 		timeline.setId(uuid);
 		timeline.setFileName(data.getFile().getOriginalFilename());
-		timeline.setThumbnail_url(fileLocation);
 		timeline.setTags(data.getTags());
 		timeline.setCreatedDate(commonUtil.getCurrentDate());
 		repository.save(timeline);
@@ -91,6 +90,11 @@ public class CloudService implements VaultService {
 	@Override
 	public List<Timeline> getObjectList(String basePath) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Timeline updateTags(Timeline data) {
 		return null;
 	}
 }

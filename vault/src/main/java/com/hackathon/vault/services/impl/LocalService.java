@@ -86,8 +86,7 @@ public class LocalService implements VaultService {
 		Timeline timeline = new Timeline();
 		timeline.setId(uuid);
 		timeline.setFileName(data.getFile().getOriginalFilename());
-		timeline.setThumbnail_url(fileLocation);
-		timeline.setTags(data.getTags());
+		timeline.setThumbnailUrl(fileLocation);
 		timeline.setCreatedDate(commonUtil.getCurrentDate());
 		repository.save(timeline);
 		return fileLocation;
@@ -97,6 +96,14 @@ public class LocalService implements VaultService {
 	public List<Timeline> getObjectList(String basePath) {
 		List<Timeline> timelines = repository.findAll();
 		return timelines;
+	}
+
+	@Override
+	public Timeline updateTags(Timeline data) {
+		Timeline timeline = repository.findByThumbnailUrl(data.getThumbnailUrl());
+		timeline.setTags(data.getTags());
+		Timeline save = repository.save(timeline);
+		return save;
 	}
 
 }
