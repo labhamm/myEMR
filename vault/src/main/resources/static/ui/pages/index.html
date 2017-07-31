@@ -246,9 +246,9 @@
 					<ul class="nav" id="side-menu">
 						<li class="sidebar-search">
 							<div class="input-group custom-search-form">
-								<input type="text" class="form-control" placeholder="Search...">
+								<input ng-model="searchtext" type="text" class="form-control" placeholder="Search...">
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">
+									<button class="btn btn-default" type="button" ng-click="filterTimelines(searchtext)">
 										<i class="fa fa-search"></i>
 									</button>
 								</span>
@@ -293,7 +293,7 @@
 											</h4>
 										</div>
 										<div class="timeline-body">
-											<button type="button" class="btn btn-primary" ng-repeat="tag in timeline.tags">
+											<button type="button" class="btn btn-primary" ng-repeat="tag in timeline.tags" ng-click="filterTimelines(tag)">
 												{{tag}}</button>
 											 
 											<button type="button pull-right"
