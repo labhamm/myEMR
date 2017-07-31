@@ -1,0 +1,19 @@
+version: 1
+
+dn: dc=phoenix,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: phoenix
+o: Philips Healthcare
+createTimestamp: 20170705090118Z
+creatorsName: cn=admin,dc=phoenix,dc=com
+entryCSN: 20170705090118.585319Z#000000#000#000000
+entryDN: dc=phoenix,dc=com
+entryUUID:: NDBiMDU0OGMtZjVhYy0xMDM2LTk1YjItZDdjM2EzMzc3Mzk3
+hasSubordinates: TRUE
+modifiersName: cn=admin,dc=phoenix,dc=com
+modifyTimestamp: 20170705090118Z
+structuralObjectClass: organization
+subschemaSubentry: cn=Subschema
+

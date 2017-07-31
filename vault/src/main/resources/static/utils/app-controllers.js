@@ -7,11 +7,11 @@ wndApp.controller('loginCtrl',function($scope, $location, $log, $rootScope, $ses
 			// create the payload for login
 			$scope.login = function() {
 				// set page location after login
-				$location.path('/upload');
+				$location.path('/home');
 				//set login flag true in rootScope
-				$rootScope.login = false;
+				$rootScope.login = true;
 				//set the login flag in session
-				$sessionStorage.login = false;
+				$sessionStorage.login = true;
 
 			}
 
@@ -19,10 +19,21 @@ wndApp.controller('loginCtrl',function($scope, $location, $log, $rootScope, $ses
 // Home Controller
 .controller('homeCtrl', function($scope, $http, $log, $route) {
 	$scope.name = "home";
+	
+	$scope.getAllTimelines = function(){
+		var responseValue = $http({
+			method : "GET",
+			url : "api/v1/timeline",
+			accept : "application/json"
+		});
+
+		responseValue.success(function(data) {
+			$scope.timelines = data.response;
+		});
+	}
 })
 // Upload
 .controller('uploadCtrl', function($scope, $http, $log, $location, $rootScope, $window) {
-	$rootScope.login = false;
 	  var vm = $scope;
 	  var url = "/api/v1/File";
 	  var config = { headers: {
